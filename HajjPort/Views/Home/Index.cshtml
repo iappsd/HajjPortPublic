@@ -1,0 +1,234 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    double totalAll = 0;
+    double totalMAll = 0;
+    double totalFAll = 0;
+
+    double totalOut = 0;
+    double totalMOut = 0;
+    double totalFOut = 0;
+
+    double totalIn = 0;
+    double totalMIn = 0;
+    double totalFIn = 0;
+
+
+    foreach (var item in ViewData["PortOperations"] as IEnumerable<PortOperations>)
+    {
+        
+
+                totalAll += Convert.ToInt32(item.Quantity);
+
+                if (item.Gender == "ذكر")
+                    totalMAll += Convert.ToInt32(item.Quantity);
+
+
+                if (item.Gender != "ذكر")
+                    totalFAll += Convert.ToInt32(item.Quantity);
+
+
+                if (item.MovementType == "دخول")
+                {
+                    totalIn += Convert.ToInt32(item.Quantity);
+
+                    if (item.Gender == "ذكر")
+                        totalMIn += Convert.ToInt32(item.Quantity);
+
+
+                    if (item.Gender != "ذكر")
+                        totalFIn += Convert.ToInt32(item.Quantity);
+                }
+
+                if (item.MovementType != "دخول")
+                {
+                    totalOut += Convert.ToInt32(item.Quantity);
+
+                    if (item.Gender == "ذكر")
+                        totalMOut += Convert.ToInt32(item.Quantity);
+
+
+                    if (item.Gender != "ذكر")
+                        totalFOut += Convert.ToInt32(item.Quantity);
+                }
+
+            
+       
+    
+}
+}
+
+
+
+<div class="container p-4">
+    <h3>اخر البيانات المدخلة </h3>
+    <br />
+    <div class="row text-success">
+        <div class="col-md-2">
+            مجموع  ذكور
+     
+        </div>
+        <div class="col-md-2">
+            @totalMAll
+            &nbsp;
+            <i class="fa fa-male"></i>
+
+        </div>
+        <div class="col-md-2">
+            مجموع  الاناث
+
+        </div>
+        <div class="col-md-2">
+            @totalFAll
+            &nbsp;
+            <i class="fa fa-female "></i>
+        </div>
+        <div class="col-md-2 text-right">
+            الاجمالي
+       
+        </div>
+        <div class="col-md-2">
+            @totalAll
+            &nbsp;
+            <i class="fa fa-calculator "></i>
+        </div>
+
+
+    </div>
+    <hr />
+    <div class="row text-primary">
+        <div class="col-md-2">
+            مجموع الدخول ذكور
+
+        </div>
+        <div class="col-md-2">
+            @totalMIn
+            &nbsp;
+            <i class="fa fa-male"></i>
+        </div>
+        <div class="col-md-2">
+            مجموع الدخول الاناث
+
+        </div>
+        <div class="col-md-2">
+            @totalFIn
+            &nbsp;
+            <i class="fa fa-female "></i>
+        </div>
+        <div class="col-md-2 text-right">
+            الاجمالي
+        </div>
+        <div class="col-md-2">
+            @totalIn
+            &nbsp;
+            <i class="fa fa-calculator "></i>
+        </div>
+
+
+    </div>
+    <hr />
+    <div class="row text-danger">
+        <div class="col-md-2">
+            مجموع الخروج ذكور
+
+        </div>
+        <div class="col-md-2">
+            @totalMOut
+            &nbsp;
+            <i class="fa fa-male"></i>
+        </div>
+        <div class="col-md-2">
+            مجموع الخروج الاناث
+
+        </div>
+        <div class="col-md-2">
+            @totalFOut
+            &nbsp;
+            <i class="fa fa-female "></i>
+        </div>
+        <div class="col-md-2 text-right">
+            الاجمالي
+        </div>
+        <div class="col-md-2">
+            @totalOut
+            &nbsp;
+            <i class="fa fa-calculator "></i>
+        </div>
+
+
+    </div>
+
+
+    <br />
+    <br />
+    <form>
+        <div class="row bg-light p-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label ">
+                        تاريخ
+                        البداية
+                    </label>
+
+                    <input type="date" name="from"  class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label ">
+                        تاريخ
+                        النهاية
+                    </label>
+
+                    <input type="date" name="to"   class="form-control" />
+                </div>
+            </div>
+            
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="submit" value="عرض" class="btn btn-dark"    />
+                </div>
+            </div>
+        </div>
+       
+      
+    </form>
+    <br />
+
+    <br />
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">المنفذ</th>
+                    <th scope="col">المدخل</th>
+                    <th scope="col">وقت و تاريخ الادخال</th>
+                    <th scope="col">نوع الحركة</th>
+                    <th scope="col">نوع المركبة</th>
+                    <th scope="col">العدد</th>
+                    <th scope="col">نوع الجنس</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in ViewData["PortOperations"] as IEnumerable<PortOperations>)
+                {
+                    <tr>
+                        <td>@item.Port.Name</td>
+                        <td>@item.Port.AppUser.Name</td>
+                        <td>@item.EntryDate</td>
+                        <td>@item.MovementType</td>
+                        <td>@item.TransportType</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Gender</td>
+                  
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+</div>

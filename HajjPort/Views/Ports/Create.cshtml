@@ -1,0 +1,46 @@
+﻿@model HajjPort.Models.Port
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+ 
+<h4>إنشاء منفذ جديد</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">المستخدم</label>
+                <select asp-for="AppUserID" class="form-control" asp-items="ViewBag.AppUserID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PortDescription" class="control-label"></label>
+                <textarea asp-for="PortDescription" class="form-control" ></textarea>
+                <span asp-validation-for="PortDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="حفظ" class="btn btn-primary" /> |
+                <a asp-action="Index" class="btn btn-outline-info">العودة الى القائمة</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+ 
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

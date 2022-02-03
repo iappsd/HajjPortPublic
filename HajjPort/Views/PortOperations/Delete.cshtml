@@ -1,0 +1,33 @@
+﻿@model HajjPort.Models.PortOperations
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+
+<h3 class="text-danger">هل أنت متأكد أنك تريد حذف ?</h3>
+<div>
+
+    <hr />
+    <h4>
+        عمليات الادخال التالية
+        :
+        @Html.DisplayFor(model => model.Quantity) |
+        @Html.DisplayFor(model => model.Gender) |
+        @Html.DisplayFor(model => model.TransportType) |
+        @Html.DisplayFor(model => model.MovementType)
+        
+    </h4>
+    <hr />
+
+
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="حذف" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-outline-info">العودة الى القائمة</a>
+
+    </form>
+</div>
+
